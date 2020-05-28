@@ -2,15 +2,16 @@ package com.xiu.ui.mvp;
 
 import android.os.Bundle;
 
+import com.xiu.ui.base.BaseActivity;
 import com.xiu.ui.mvp.delegate.ActivityMvpDelegate;
 import com.xiu.ui.mvp.delegate.ActivityMvpDelegateImpl;
 import com.xiu.ui.mvp.delegate.MvpDelegateCallback;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class MvpActivity<V extends MvpView,
-        P extends MvpPresenter<V>> extends AppCompatActivity implements MvpDelegateCallback<V,P>, MvpView {
+        P extends MvpPresenter<V>> extends BaseActivity implements MvpDelegateCallback<V
+        ,P>, MvpView {
 
 
     protected ActivityMvpDelegate mvpDelegate;

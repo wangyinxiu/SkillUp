@@ -23,6 +23,16 @@ android {
 
 }
 
+allprojects {
+    repositories {
+        maven { url "https://oss.jfrog.org/libs-snapshot" }
+    }
+}
+
+
 dependencies {
     api 'com.squareup.picasso:picasso:2.71828'
+    api 'androidx.appcompat:appcompat:1.0.2'
+    api 'io.reactivex.rxjava2:rxjava:2.2.3'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
 }

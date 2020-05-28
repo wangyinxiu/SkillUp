@@ -12,4 +12,6 @@ public class ListUtil {
         return !isEmpty(list);
     }
 
+
+
 }
