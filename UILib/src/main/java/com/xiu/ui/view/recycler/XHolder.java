@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.xiu.ui.image.PicassoUtil;
+import com.xiu.ui.view.XButton;
 import com.xiu.ui.view.XTextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,10 @@ public class XHolder extends RecyclerView.ViewHolder {
     }
 
     public XTextView findTextViewById(int id){
+        return findViewById(id);
+    }
+
+    public XButton findButtonById(int id){
         return findViewById(id);
     }
 

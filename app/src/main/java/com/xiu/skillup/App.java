@@ -49,49 +49,49 @@ public class App extends Application implements Application.ActivityLifecycleCal
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
-        LogUtil.i(TAG,
-                "onActivityCreated activity == " + activity.getClass().getSimpleName());
+//        LogUtil.i(TAG,
+//                "onActivityCreated activity == " + activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
-        LogUtil.i(TAG,
-                "onActivityStarted activity == " + activity.getClass().getSimpleName());
+//        LogUtil.i(TAG,
+//                "onActivityStarted activity == " + activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityResumed(@NonNull Activity activity) {
-        LogUtil.i(TAG,
-                "onActivityResumed activity == " + activity.getClass().getSimpleName());
+//        LogUtil.i(TAG,
+//                "onActivityResumed activity == " + activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityPaused(@NonNull Activity activity) {
-        LogUtil.i(TAG,
-                "onActivityPaused activity == " + activity.getClass().getSimpleName());
+//        LogUtil.i(TAG,
+//                "onActivityPaused activity == " + activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityStopped(@NonNull Activity activity) {
-        LogUtil.i(TAG,
-                "onActivityStopped activity == " + activity.getClass().getSimpleName());
+//        LogUtil.i(TAG,
+//                "onActivityStopped activity == " + activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
-        LogUtil.i(TAG,
-                "onActivitySaveInstanceState activity == " + activity.getClass().getSimpleName());
+//        LogUtil.i(TAG,
+//                "onActivitySaveInstanceState activity == " + activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
-        LogUtil.i(TAG,
-                "onActivityDestroyed activity == " + activity.getClass().getSimpleName());
+//        LogUtil.i(TAG,
+//                "onActivityDestroyed activity == " + activity.getClass().getSimpleName());
     }
 
     @Override
     public void onProvideAssistData(Activity activity, Bundle bundle) {
-        LogUtil.i(TAG,
-                "onProvideAssistData activity == " + activity.getClass().getSimpleName());
+//        LogUtil.i(TAG,
+//                "onProvideAssistData activity == " + activity.getClass().getSimpleName());
     }
 }

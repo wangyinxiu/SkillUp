@@ -21,6 +21,7 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
     private List<T> data = null;
     private Context context = null;
     private View.OnClickListener onClickListener;
+    private OnItemClickLister<T> onItemClickLister;
 
     public XRecyclerAdapter(Context context) {
         this.context = context;
@@ -69,8 +70,13 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
                 public void onClick(View view) {
                     int[] tags = (int[]) view.getTag();
                     if (ArrayUtil.isIntArrayNotEmpty(tags)) {
-                        XRecyclerAdapter.this.onClick(tags[0], tags[1],
-                                getItem(tags[1]));
+                        if (onItemClickLister == null) {
+                            XRecyclerAdapter.this.onClick(tags[0], tags[1],
+                                    getItem(tags[1]));
+                        } else {
+                            onItemClickLister.onItemClick(tags[0], tags[1],
+                                    getItem(tags[1]));
+                        }
                     }
                 }
             };
@@ -150,9 +156,17 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
         return result;
     }
 
+    public void setOnItemClickLister(OnItemClickLister<T> onItemClickLister){
+        this.onItemClickLister = onItemClickLister;
+    }
+
 
     public void sort(Comparator<T> comparator) {
         Collections.sort(data, comparator);
         notifyDataSetChanged();
+    }
+
+    public interface OnItemClickLister<T> {
+        void onItemClick(int id, int position, T data);
     }
 }

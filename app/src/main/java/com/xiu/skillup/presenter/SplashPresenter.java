@@ -1,7 +1,7 @@
 package com.xiu.skillup.presenter;
 
 import com.xiu.common.utils.LogUtil;
-import com.xiu.skillup.view.SplashView;
+import com.xiu.skillup.mvp_view.SplashView;
 import com.xiu.ui.mvp.MvpBasePresenter;
 
 import java.util.concurrent.TimeUnit;

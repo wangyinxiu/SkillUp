@@ -1,2 +1,2 @@
-include ':app', ':UILib', ':commonlib'
+include ':app', ':UILib', ':commonlib', ':photopicker', ':datalib'
 rootProject.name='SkillUp'

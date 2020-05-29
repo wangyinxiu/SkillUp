@@ -1,4 +1,4 @@
-package com.xiu.skillup.view;
+package com.xiu.skillup.mvp_view;
 
 import com.xiu.ui.mvp.MvpView;
 

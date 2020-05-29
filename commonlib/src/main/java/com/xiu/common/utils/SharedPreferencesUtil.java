@@ -16,13 +16,13 @@ public class SharedPreferencesUtil {
         LogUtil.i(TAG, "write value == " + value);
         SharedPreferences.Editor editor = getEditor(context);
         if (value instanceof Integer) {
-            editor.putInt(key, (int) value);
+            editor.putInt(key, (Integer) value);
         } else if (value instanceof Boolean) {
-            editor.putBoolean(key, (boolean) value);
+            editor.putBoolean(key, (Boolean) value);
         } else if (value instanceof Long) {
-            editor.putLong(key, (long) value);
+            editor.putLong(key, (Long) value);
         } else if (value instanceof Float) {
-            editor.putFloat(key, (float) value);
+            editor.putFloat(key, (Float) value);
         } else if (value instanceof String) {
             editor.putString(key, (String) value);
         } else {
