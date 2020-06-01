@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 
 import com.xiu.common.utils.LogUtil;
+import com.xiu.ui.image.PicassoUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
     public void onCreate() {
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
+        PicassoUtil.init(this);
         LogUtil.i(TAG,"onCreate");
     }
 

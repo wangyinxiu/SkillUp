@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <com.xiu.ui.view.XButton
+        android:id="@+id/btn_camera_only"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="拍照直接返回" />
+
+    <com.xiu.ui.view.XButton
+        android:id="@+id/btn_camera_crop"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="拍照并裁减" />
+
+    <com.xiu.ui.view.XButton
+        android:id="@+id/btn_album_single"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="相册单选" />
+
+    <com.xiu.ui.view.XButton
+        android:id="@+id/btn_album_multiple"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="拍照多选" />
+
+    <com.xiu.ui.view.XButton
+        android:id="@+id/btn_system_album"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="系统相册" />
+
+</LinearLayout>

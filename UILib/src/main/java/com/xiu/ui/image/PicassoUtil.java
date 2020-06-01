@@ -7,47 +7,21 @@ import android.widget.ImageView;
 import com.squareup.picasso.Cache;
 import com.squareup.picasso.Picasso;
 import com.xiu.common.utils.BitmapUtil;
+import com.xiu.common.utils.LogUtil;
 
 import java.io.File;
 
 public class PicassoUtil {
 
+    private static final String TAG = "PicassoUtil";
+
     private static final int DEFAULT_HOLDER_RES_ID = 0;
     private static final int DEFAULT_ERROR_RES_ID = 1;
 
     public static void init(Context context){
-        Picasso picasso = new Picasso.Builder(context.getApplicationContext())
-                .memoryCache(new Cache() {
-                    @Override
-                    public Bitmap get(String key) {
-                        return BitmapUtil.readBitmapFromImageRoot(key);
-                    }
-
-                    @Override
-                    public void set(String key, Bitmap bitmap) {
-                        BitmapUtil.saveBitmapToImageRoot(key,bitmap);
-                    }
-
-                    @Override
-                    public int size() {
-                        return 0;
-                    }
-
-                    @Override
-                    public int maxSize() {
-                        return 0;
-                    }
-
-                    @Override
-                    public void clear() {
-
-                    }
-
-                    @Override
-                    public void clearKeyUri(String keyPrefix) {
-
-                    }
-                })
+        LogUtil.i(TAG,"init picasso");
+        Picasso picasso = new Picasso.Builder(context)
+                .loggingEnabled(true)
                 .build();
         Picasso.setSingletonInstance(picasso);
     }
@@ -55,8 +29,8 @@ public class PicassoUtil {
 
     public static void load(String path, ImageView imageView){
         Picasso.get().load(path)
-                .placeholder(DEFAULT_HOLDER_RES_ID)
-                .error(DEFAULT_ERROR_RES_ID)
+//                .placeholder(DEFAULT_HOLDER_RES_ID)
+//                .error(DEFAULT_ERROR_RES_ID)
                 .into(imageView);
     }
 

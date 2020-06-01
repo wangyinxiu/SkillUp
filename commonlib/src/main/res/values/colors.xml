@@ -5,4 +5,5 @@
     <color name="black">#000000</color>
     <color name="gray">#acacac</color>
     <color name="divider">@color/gray</color>
+    <color name="blue">#1296db</color>
 </resources>

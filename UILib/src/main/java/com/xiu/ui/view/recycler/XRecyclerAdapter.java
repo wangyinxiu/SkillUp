@@ -23,6 +23,7 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
     private View.OnClickListener onClickListener;
     private OnItemClickLister<T> onItemClickLister;
 
+
     public XRecyclerAdapter(Context context) {
         this.context = context;
         data = new ArrayList<>();
@@ -37,7 +38,7 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
 
     public abstract int[] setOnClick();
 
-    public abstract void onClick(int id, int position, T data);
+    public abstract boolean onClick(int id, int position, T data);
 
     public abstract void onBindViewHolder(@NonNull XHolder holder,
                                           int position, T data);
@@ -65,18 +66,11 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
 
     public void setXHolderClick(XHolder holder) {
         if (ArrayUtil.isIntArrayNotEmpty(setOnClick())) {
-            onClickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int[] tags = (int[]) view.getTag();
-                    if (ArrayUtil.isIntArrayNotEmpty(tags)) {
-                        if (onItemClickLister == null) {
-                            XRecyclerAdapter.this.onClick(tags[0], tags[1],
-                                    getItem(tags[1]));
-                        } else {
-                            onItemClickLister.onItemClick(tags[0], tags[1],
-                                    getItem(tags[1]));
-                        }
+            onClickListener = view -> {
+                int[] tags = (int[]) view.getTag();
+                if (ArrayUtil.isIntArrayNotEmpty(tags)) {
+                    if (XRecyclerAdapter.this.onClick(tags[0], tags[1], getItem(tags[1])) && onItemClickLister != null) {
+                        onItemClickLister.onItemClick(tags[0], tags[1], getItem(tags[1]));
                     }
                 }
             };
@@ -156,7 +150,7 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
         return result;
     }
 
-    public void setOnItemClickLister(OnItemClickLister<T> onItemClickLister){
+    public void setOnItemClickLister(OnItemClickLister<T> onItemClickLister) {
         this.onItemClickLister = onItemClickLister;
     }
 

@@ -2,28 +2,28 @@ package com.xiu.skillup.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.xiu.media.MediaLoader;
 import com.xiu.photopicker.activity.PhotoPickerActivity;
 import com.xiu.skillup.R;
 import com.xiu.skillup.adapter.MainAdapter;
 import com.xiu.skillup.mvp_view.MainView;
 import com.xiu.skillup.presenter.MainPresenter;
 import com.xiu.ui.mvp.MvpActivity;
-import com.xiu.ui.mvp.MvpNullObjectBasePresenter;
-import com.xiu.ui.mvp.MvpView;
 import com.xiu.ui.view.recycler.XRecyclerAdapter;
 
 public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView,
         XRecyclerAdapter.OnItemClickLister<String> {
 
     private static final String ITEM_PHOTO_PICK = "图片选择";
+    private static final String ITEM_TEST_TEMP = "临时测试";
     private MainAdapter adapter = null;
 
     public static void newInstance(Context context) {
@@ -44,20 +44,30 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.addData(ITEM_TEST_TEMP);
         adapter.addData(ITEM_PHOTO_PICK);
         adapter.setOnItemClickLister(this);
-
+        setTitle("功能项");
     }
 
     @Override
     public void onItemClick(int id, int position, String data) {
         switch (data) {
+            case ITEM_TEST_TEMP:
+                MediaLoader loader = new MediaLoader();
+                loader.startLoader(this);
+                break;
             case ITEM_PHOTO_PICK:
                 PhotoPickerActivity.newInstance(this);
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onShowToast(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     @NonNull

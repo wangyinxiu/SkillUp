@@ -26,8 +26,8 @@ public class MainAdapter extends XRecyclerAdapter<String> {
     }
 
     @Override
-    public void onClick(int id, int position, String data) {
-
+    public boolean onClick(int id, int position, String data) {
+        return true;
     }
 
     @Override
