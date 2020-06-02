@@ -31,18 +31,14 @@ public class PhotoPickerPresenter extends MvpBasePresenter<PhotoPickerView> {
         new RxPermissions(activity)
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
-                .subscribe(aBoolean -> {
-                    if (aBoolean) {
-                        cameraUri = FileProvider.getUriForFile(activity
-                                , activity.getPackageName()+".fileprovider"
-                                , FileUtil.createNewImageFile());
-                        Intent intent = new Intent();
-                        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
-                        activity.startActivityForResult(intent, CommonConfig.REQUEST.REQUEST_CAMERA);
-                    } else {
-                        LogUtil.i(TAG, "permission def");
-                    }
+                .subscribe(permission -> {
+                    cameraUri = FileProvider.getUriForFile(activity
+                            , activity.getPackageName() + ".fileprovider"
+                            , FileUtil.createNewImageFile(permission));
+                    Intent intent = new Intent();
+                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
+                    activity.startActivityForResult(intent, CommonConfig.REQUEST.REQUEST_CAMERA);
                 });
 
 
@@ -81,7 +77,7 @@ public class PhotoPickerPresenter extends MvpBasePresenter<PhotoPickerView> {
 
     public void onActivityResult(BaseActivity activity, int requestCode,
                                  int resultCode, Intent data) {
-        LogUtil.i(TAG,"requestCode == "+ requestCode +" , resultCode == "+ resultCode);
+        LogUtil.i(TAG, "requestCode == " + requestCode + " , resultCode == " + resultCode);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CommonConfig.REQUEST.REQUEST_CAMERA) {
                 disassembleCamera(activity, data);
@@ -90,7 +86,7 @@ public class PhotoPickerPresenter extends MvpBasePresenter<PhotoPickerView> {
     }
 
     private void disassembleCamera(BaseActivity activity, Intent data) {
-        LogUtil.i(TAG,"disassembleCamera");
+        LogUtil.i(TAG, "disassembleCamera");
 //        File file = new File(cameraUri);
 //        Uri uri = cameraUri;
 //        cameraUri.getPath();

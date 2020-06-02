@@ -21,7 +21,8 @@ public class BitmapUtil {
      * @return true正常执行 false已经存在目标路径图片，放弃保存
      */
     public static int saveBitmapToImageRoot(String name,Bitmap bitmap){
-        File target = new File(FileUtil.getImageRootDir()+File.separator+name);
+        File target =
+                new File(FileUtil.getImageRootPath()+File.separator+name);
         if(target.exists()){
            return SAVE_EXISTS;
         }
@@ -45,7 +46,7 @@ public class BitmapUtil {
     }
 
     public static Bitmap readBitmapFromImageRoot(String name){
-        String path = FileUtil.getImageRootDir() + File.separator + name;
+        String path = FileUtil.getImageRootPath() + File.separator + name;
         Bitmap bitmap = null;
         if(FileUtil.exists(path)){
             bitmap = BitmapFactory.decodeFile(path);

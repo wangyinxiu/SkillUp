@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.Toast;
 
+import com.xiu.common.utils.LogUtil;
+import com.xiu.datalib.loader.DataLoader;
 import com.xiu.media.MediaLoader;
 import com.xiu.photopicker.activity.PhotoPickerActivity;
 import com.xiu.skillup.R;
@@ -24,6 +27,9 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     private static final String ITEM_PHOTO_PICK = "图片选择";
     private static final String ITEM_TEST_TEMP = "临时测试";
+    private static final String ITEM_LOAD_IMAGE = "加载图片列表";
+    private static final String ITEM_LOAD_VIDEO = "加载视频列表";
+    private static final String ITEM_LOAD_MEDIA = "加载音乐列表";
     private MainAdapter adapter = null;
 
     public static void newInstance(Context context) {
@@ -44,8 +50,9 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-        adapter.addData(ITEM_TEST_TEMP);
-        adapter.addData(ITEM_PHOTO_PICK);
+        adapter.addData(ITEM_LOAD_IMAGE);
+        adapter.addData(ITEM_LOAD_VIDEO);
+        adapter.addData(ITEM_LOAD_MEDIA);
         adapter.setOnItemClickLister(this);
         setTitle("功能项");
     }
@@ -53,9 +60,17 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     public void onItemClick(int id, int position, String data) {
         switch (data) {
+            case ITEM_LOAD_IMAGE:
+                getPresenter().intent2ImageListActivity(getContext());
+                break;
+            case ITEM_LOAD_VIDEO:
+                getPresenter().intent2VideoListActivity(getContext());
+                break;
+            case ITEM_LOAD_MEDIA:
+                getPresenter().intent2MediaListActivity(getContext());
+                break;
             case ITEM_TEST_TEMP:
-                MediaLoader loader = new MediaLoader();
-                loader.startLoader(this);
+                presenter.startDataLoader(this);
                 break;
             case ITEM_PHOTO_PICK:
                 PhotoPickerActivity.newInstance(this);

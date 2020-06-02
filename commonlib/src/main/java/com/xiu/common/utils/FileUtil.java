@@ -1,45 +1,72 @@
 package com.xiu.common.utils;
-
-import android.Manifest;
 import android.os.Environment;
-
-import com.tbruyelle.rxpermissions2.Permission;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
 import java.io.File;
 import java.io.IOException;
 
-import androidx.appcompat.app.AppCompatActivity;
-import io.reactivex.functions.Consumer;
-
 public class FileUtil {
 
-    public static String getImageRootDir(){
-        return getRootDirPath()+File.separator+"image";
+    private static final String TAG = "FileUtil";
+
+    private static final String PACKAGE_NAME = "com.xiu.skillup";
+
+    public static void createSkillUpRootDir(boolean permission){
+        createDir(getCacheRootPath(permission));
+        createDir(getImageRootPath(permission));
+        createDir(getVideoRootPath(permission));
+    }
+
+    public static String getImageRootPath(){
+        return getImageRootPath(true);
+    }
+
+    public static String getImageRootPath(boolean permission){
+        return getRootPath(permission)+File.separator+"image";
+    }
+
+    public static String getVideoRootPath(){
+        return getVideoRootPath(true);
+    }
+
+    public static String getVideoRootPath(boolean permission){
+        return getRootPath(permission)+File.separator+"video";
+    }
+
+    public static String getCacheRootPath(){
+        return getCacheRootPath(true);
+    }
+
+    public static String getCacheRootPath(boolean permission){
+        return getRootPath(permission)+File.separator+"cache";
+    }
+
+    public static void createDir(String path){
+        File file = new File(path);
+        if(!file.exists()){
+            boolean result = file.mkdirs();
+            LogUtil.i(TAG,"create dir result == "+result+" ,path == "+path);
+        }
     }
 
 
-
-    public static String getRootDirPath(){
+    public static String getRootPath(boolean permission){
         String path = null;
-        File sdCardFile = getSDCardFile();
-        if(sdCardFile == null){
-            path = Environment.getDataDirectory().getAbsolutePath();
-        }else {
-            path = sdCardFile.getAbsolutePath();        }
+        try {
+            path = null;
+            if(isExternalStorageMounted() && permission){
+                path =
+                        Environment.getExternalStorageDirectory().getCanonicalPath()+File.separator+ PACKAGE_NAME;
+            }else {
+                path =
+                        Environment.getDataDirectory().getCanonicalPath()+File.separator+PACKAGE_NAME;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return path;
     }
 
-
-    public static File getSDCardFile(){
-        File sdDir = null;
-        boolean sdCardExist = Environment.getExternalStorageState()
-                .equals(android.os.Environment.MEDIA_MOUNTED);//判断sd卡是否存在
-        if(sdCardExist)
-        {
-            sdDir = Environment.getExternalStorageDirectory();//获取跟目录
-        }
-        return sdDir;
+    public static boolean isExternalStorageMounted(){
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
     public static boolean exists(String path){
@@ -51,12 +78,9 @@ public class FileUtil {
         return exists(dir+File.separator+name);
     }
 
-    public static File createNewImageFile(){
-        File dir = new File(getImageRootDir());
-        if(!dir.exists()){
-            dir.mkdirs();
-        }
-        String path = getImageRootDir() +File.separator+"Image_"+System.currentTimeMillis()+
+    public static File createNewImageFile(boolean permission){
+        String path =
+                getImageRootPath(permission)+File.separator+"Image_"+System.currentTimeMillis()+
                 ".jpg";
         File file = new File(path);
         try {
