@@ -38,14 +38,11 @@ public class MainPresenter extends MvpBasePresenter<MainView> {
     }
 
     public void startDataLoader(BaseActivity activity) {
-        new RxPermissions(activity).request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean permission) throws Exception {
-                if (permission) {
-                    DataLoader.getInstance().startLoader(Environment.getExternalStorageDirectory());
-                } else {
-                    DataLoader.getInstance().startLoader(Environment.getDataDirectory());
-                }
+        new RxPermissions(activity).request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(permission -> {
+            if (permission) {
+                DataLoader.getInstance().startLoader(Environment.getExternalStorageDirectory());
+            } else {
+                DataLoader.getInstance().startLoader(Environment.getDataDirectory());
             }
         });
     }

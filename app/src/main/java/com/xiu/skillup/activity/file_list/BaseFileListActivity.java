@@ -1,45 +1,23 @@
 package com.xiu.skillup.activity.file_list;
 
-import android.os.Bundle;
-
-import com.xiu.common.utils.ListUtil;
 import com.xiu.common.utils.LogUtil;
-import com.xiu.skillup.R;
-import com.xiu.skillup.adapter.MainAdapter;
 import com.xiu.skillup.mvp_view.FileListView;
 import com.xiu.skillup.presenter.file_list.FileListPresenter;
-import com.xiu.ui.mvp.MvpActivity;
+import com.xiu.ui.base.recycler.BaseRecyclerActivity;
 import com.xiu.ui.view.recycler.XRecyclerAdapter;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-public abstract class BaseFileListActivity<P extends FileListPresenter<FileListView>> extends MvpActivity<FileListView, P>
-        implements FileListView, XRecyclerAdapter.OnItemClickLister<String> {
+public  abstract class BaseFileListActivity
+        <T,
+        A extends XRecyclerAdapter<T>,
+        P extends FileListPresenter<T,FileListView>
+                >
+        extends BaseRecyclerActivity<T,A,FileListView, P>
+        implements FileListView {
 
     private static final String TAG = BaseFileListActivity.class.getSimpleName();
 
-    private MainAdapter adapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-
-    @Override
-    public void onContentChanged() {
-        super.onContentChanged();
-        RecyclerView recyclerView = findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MainAdapter(getContext());
-        adapter.setOnItemClickLister(this);
-        recyclerView.setAdapter(adapter);
-        adapter.addData(getPresenter().getFileList());
-    }
 
     @Override
     protected void onStart() {
@@ -59,11 +37,9 @@ public abstract class BaseFileListActivity<P extends FileListPresenter<FileListV
     }
 
     @Override
-    public void onDataLoaded(List<String> data) {
-        LogUtil.i(TAG, "onDataLoaded data size == " + data.size());
-        adapter.clear();
-        adapter.addData(data);
-
+    public void onDataLoaded(List data) {
+        LogUtil.i(getClass().getSimpleName(),"data size == "+ data.size());
+        getAdapter().addData(data);
     }
 
     @Override
@@ -71,9 +47,13 @@ public abstract class BaseFileListActivity<P extends FileListPresenter<FileListV
         LogUtil.i(TAG, "onDismissLoading");
     }
 
+    @Override
+    public boolean enableRefreshFooter() {
+        return false;
+    }
 
     @Override
-    public void onItemClick(int id, int position, String data) {
-
+    public boolean enableRefreshHeader() {
+        return false;
     }
 }

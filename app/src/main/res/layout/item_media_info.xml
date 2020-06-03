@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <com.xiu.ui.view.XTextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:text="asdfasdf"
+        />
+    <com.xiu.ui.view.XTextView
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/item_title"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/item_album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asdfasdf"
+        />
+
+    <com.xiu.ui.view.XTextView
+        android:id="@+id/item_artist"
+        android:text="asdklfjasdg"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+
+    <com.xiu.ui.view.XTextView
+        android:layout_toRightOf="@id/item_artist"
+        android:id="@+id/item_path"
+        android:text="asdklfjasdg"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:singleLine="true"
+        android:ellipsize="middle"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray"
+        />
+
+</RelativeLayout>

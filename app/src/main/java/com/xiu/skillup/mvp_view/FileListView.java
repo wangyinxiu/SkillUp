@@ -4,11 +4,11 @@ import com.xiu.ui.mvp.MvpView;
 
 import java.util.List;
 
-public interface FileListView extends MvpView {
+public interface FileListView<T> extends MvpView {
 
     void onShowLoading();
 
-    void onDataLoaded(List<String> data);
+    void onDataLoaded(List<T> data);
 
     void onDismissLoading();
 

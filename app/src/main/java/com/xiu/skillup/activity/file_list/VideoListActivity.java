@@ -1,12 +1,13 @@
 package com.xiu.skillup.activity.file_list;
 
-import androidx.annotation.NonNull;
-
-import android.os.Bundle;
-
+import com.xiu.skillup.adapter.SingleButtonAdapter;
 import com.xiu.skillup.presenter.file_list.VideoFileListPresenter;
 
-public class VideoListActivity extends BaseFileListActivity<VideoFileListPresenter> {
+import androidx.annotation.NonNull;
+
+public class VideoListActivity extends BaseFileListActivity<String,
+        SingleButtonAdapter,
+        VideoFileListPresenter> {
 
     @Override
     public void onContentChanged() {
@@ -18,6 +19,11 @@ public class VideoListActivity extends BaseFileListActivity<VideoFileListPresent
     @Override
     public VideoFileListPresenter createPresenter() {
         return new VideoFileListPresenter();
+    }
+
+    @Override
+    public SingleButtonAdapter createAdapter() {
+        return new SingleButtonAdapter(getContext());
     }
 
     @Override

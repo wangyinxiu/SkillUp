@@ -81,7 +81,7 @@ public class AlbumSelectedAdapter extends XRecyclerAdapter<Image> {
         if (selected.contains(data)) {
             visibility = View.VISIBLE;
         }
-        holder.findViewById(R.id.item_btn).setVisibility(visibility);
+        holder.findViewById(R.id.item_select).setVisibility(visibility);
         holder.findViewById(R.id.item_mask).setVisibility(visibility);
     }
 

@@ -5,7 +5,8 @@ import com.xiu.skillup.mvp_view.FileListView;
 
 import java.util.List;
 
-public class VideoFileListPresenter extends FileListPresenter<FileListView> {
+public class VideoFileListPresenter extends FileListPresenter<String,
+        FileListView> {
     @Override
     public List<String> getFileList() {
         return DataLoader.getInstance().getVideoData();

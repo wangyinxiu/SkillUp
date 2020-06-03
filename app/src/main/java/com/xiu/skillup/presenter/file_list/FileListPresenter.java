@@ -13,9 +13,9 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 
-public abstract class FileListPresenter<T extends FileListView> extends MvpBasePresenter<T> implements OnDataLoaderListener {
+public abstract class FileListPresenter<T,V extends FileListView> extends MvpBasePresenter<V> implements OnDataLoaderListener {
 
-    public abstract List<String> getFileList();
+    public abstract List<T> getFileList();
 
 
     public void startDataLoader(){

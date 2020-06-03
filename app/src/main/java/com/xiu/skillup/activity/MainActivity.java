@@ -1,59 +1,43 @@
 package com.xiu.skillup.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Environment;
 import android.widget.Toast;
 
 import com.xiu.common.utils.LogUtil;
-import com.xiu.datalib.loader.DataLoader;
-import com.xiu.media.MediaLoader;
 import com.xiu.photopicker.activity.PhotoPickerActivity;
-import com.xiu.skillup.R;
-import com.xiu.skillup.adapter.MainAdapter;
+import com.xiu.skillup.adapter.SingleButtonAdapter;
 import com.xiu.skillup.mvp_view.MainView;
 import com.xiu.skillup.presenter.MainPresenter;
-import com.xiu.ui.mvp.MvpActivity;
-import com.xiu.ui.view.recycler.XRecyclerAdapter;
+import com.xiu.ui.base.recycler.BaseRecyclerActivity;
 
-public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView,
-        XRecyclerAdapter.OnItemClickLister<String> {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class MainActivity extends
+        BaseRecyclerActivity<String,SingleButtonAdapter,MainView, MainPresenter>
+        implements MainView {
 
     private static final String ITEM_PHOTO_PICK = "图片选择";
     private static final String ITEM_TEST_TEMP = "临时测试";
     private static final String ITEM_LOAD_IMAGE = "加载图片列表";
     private static final String ITEM_LOAD_VIDEO = "加载视频列表";
     private static final String ITEM_LOAD_MEDIA = "加载音乐列表";
-    private MainAdapter adapter = null;
 
     public static void newInstance(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
 
     @Override
     public void onContentChanged() {
         super.onContentChanged();
-        adapter = new MainAdapter(getContext());
-        RecyclerView recyclerView = findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        SingleButtonAdapter adapter = getAdapter();
+        adapter.setOnItemClickLister(this);
         adapter.addData(ITEM_LOAD_IMAGE);
         adapter.addData(ITEM_LOAD_VIDEO);
         adapter.addData(ITEM_LOAD_MEDIA);
-        adapter.setOnItemClickLister(this);
         setTitle("功能项");
     }
 
@@ -96,4 +80,13 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         super.onActivityResult(requestCode, resultCode, data);
         getPresenter().onActivityResult(getContext(), requestCode, resultCode, data);
     }
+
+    @Override
+    public SingleButtonAdapter createAdapter() {
+        return new SingleButtonAdapter(getContext());
+    }
+
+
+
+
 }

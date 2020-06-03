@@ -1,14 +1,13 @@
 package com.xiu.skillup.activity.file_list;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
-import com.xiu.skillup.R;
+import com.xiu.datalib.common.MediaInfo;
+import com.xiu.skillup.adapter.MediaInfoAdapter;
 import com.xiu.skillup.presenter.file_list.MediaFileListPresenter;
 
-public class MediaListActivity extends BaseFileListActivity<MediaFileListPresenter> {
+import androidx.annotation.NonNull;
+
+public class MediaListActivity
+        extends BaseFileListActivity<MediaInfo, MediaInfoAdapter, MediaFileListPresenter> {
 
     @Override
     public void onContentChanged() {
@@ -23,7 +22,12 @@ public class MediaListActivity extends BaseFileListActivity<MediaFileListPresent
     }
 
     @Override
-    public void onItemClick(int id, int position, String data) {
+    public MediaInfoAdapter createAdapter() {
+        return new MediaInfoAdapter(getContext());
+    }
+
+    @Override
+    public void onItemClick(int id, int position, MediaInfo data) {
 
     }
 }

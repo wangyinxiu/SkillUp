@@ -1,14 +1,13 @@
 package com.xiu.skillup.activity;
 
-import androidx.annotation.NonNull;
-
 import android.os.Bundle;
-import android.view.View;
 
 import com.xiu.skillup.R;
-import com.xiu.skillup.presenter.SplashPresenter;
 import com.xiu.skillup.mvp_view.SplashView;
+import com.xiu.skillup.presenter.SplashPresenter;
 import com.xiu.ui.mvp.MvpActivity;
+
+import androidx.annotation.NonNull;
 
 public class SplashActivity extends MvpActivity<SplashView,
         SplashPresenter> implements SplashView {
@@ -22,12 +21,9 @@ public class SplashActivity extends MvpActivity<SplashView,
     @Override
     public void onContentChanged() {
         super.onContentChanged();
-        findTextViewById(R.id.tv_countdown).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getPresenter().stopCountDown();
-                intentToMain();
-            }
+        findTextViewById(R.id.tv_countdown).setOnClickListener(view -> {
+            getPresenter().stopCountDown();
+            intentToMain();
         });
     }
 
