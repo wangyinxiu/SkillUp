@@ -24,12 +24,12 @@ public class MediaInfoAdapter extends XRecyclerAdapter<MediaInfo> {
 
     @Override
     public int[] setOnClick() {
-        return new int[]{};
+        return new int[]{R.id.item_btn};
     }
 
     @Override
     public boolean onClick(int id, int position, MediaInfo data) {
-        return false;
+        return true;
     }
 
     @Override

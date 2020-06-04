@@ -150,6 +150,10 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
         return result;
     }
 
+    public List<T> getData(){
+        return data;
+    }
+
     public void setOnItemClickLister(OnItemClickLister<T> onItemClickLister) {
         this.onItemClickLister = onItemClickLister;
     }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.xiu.common.utils.LogUtil;
 import com.xiu.ui.R;
 import com.xiu.ui.utils.UiUtil;
+import com.xiu.ui.view.XButton;
 import com.xiu.ui.view.XTextView;
 
 import androidx.annotation.Nullable;
@@ -111,6 +112,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public ImageView findImageViewById(int id) {
+        return findViewById(id);
+    }
+
+    public XButton findButtonViewById(int id){
         return findViewById(id);
     }
 

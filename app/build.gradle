@@ -31,7 +31,6 @@ dependencies {
     implementation project(path: ':commonlib')
     implementation project(path: ':UILib')
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation project(path: ':photopicker')
     implementation project(path: ':datalib')
     implementation project(path: ':media')
 }

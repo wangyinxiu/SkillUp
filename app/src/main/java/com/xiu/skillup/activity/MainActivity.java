@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.xiu.common.utils.LogUtil;
-import com.xiu.photopicker.activity.PhotoPickerActivity;
 import com.xiu.skillup.adapter.SingleButtonAdapter;
 import com.xiu.skillup.mvp_view.MainView;
 import com.xiu.skillup.presenter.MainPresenter;
@@ -18,7 +16,6 @@ public class MainActivity extends
         BaseRecyclerActivity<String,SingleButtonAdapter,MainView, MainPresenter>
         implements MainView {
 
-    private static final String ITEM_PHOTO_PICK = "图片选择";
     private static final String ITEM_TEST_TEMP = "临时测试";
     private static final String ITEM_LOAD_IMAGE = "加载图片列表";
     private static final String ITEM_LOAD_VIDEO = "加载视频列表";
@@ -56,9 +53,6 @@ public class MainActivity extends
             case ITEM_TEST_TEMP:
                 presenter.startDataLoader(this);
                 break;
-            case ITEM_PHOTO_PICK:
-                PhotoPickerActivity.newInstance(this);
-                break;
             default:
                 break;
         }
@@ -75,11 +69,6 @@ public class MainActivity extends
         return new MainPresenter();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        getPresenter().onActivityResult(getContext(), requestCode, resultCode, data);
-    }
 
     @Override
     public SingleButtonAdapter createAdapter() {

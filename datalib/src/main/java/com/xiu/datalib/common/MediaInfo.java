@@ -1,6 +1,9 @@
 package com.xiu.datalib.common;
 
-public class MediaInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class MediaInfo implements Parcelable {
     private String title;
     private String album;
     private String artist;
@@ -49,4 +52,37 @@ public class MediaInfo {
     public String getArtist() {
         return artist;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.album);
+        dest.writeString(this.artist);
+        dest.writeString(this.path);
+    }
+
+    protected MediaInfo(Parcel in) {
+        this.title = in.readString();
+        this.album = in.readString();
+        this.artist = in.readString();
+        this.path = in.readString();
+    }
+
+    public static final Parcelable.Creator<MediaInfo> CREATOR = new Parcelable.Creator<MediaInfo>() {
+        @Override
+        public MediaInfo createFromParcel(Parcel source) {
+            return new MediaInfo(source);
+        }
+
+        @Override
+        public MediaInfo[] newArray(int size) {
+            return new MediaInfo[size];
+        }
+    };
 }

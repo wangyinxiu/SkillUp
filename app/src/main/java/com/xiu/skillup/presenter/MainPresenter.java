@@ -6,19 +6,13 @@ import android.content.Intent;
 import android.os.Environment;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.xiu.datalib.image.Image;
 import com.xiu.datalib.loader.DataLoader;
-import com.xiu.photopicker.activity.AlbumPickerActivity;
 import com.xiu.skillup.activity.file_list.ImageListActivity;
 import com.xiu.skillup.activity.file_list.MediaListActivity;
 import com.xiu.skillup.activity.file_list.VideoListActivity;
 import com.xiu.skillup.mvp_view.MainView;
 import com.xiu.ui.base.BaseActivity;
 import com.xiu.ui.mvp.MvpBasePresenter;
-
-import java.util.ArrayList;
-
-import io.reactivex.functions.Consumer;
 
 public class MainPresenter extends MvpBasePresenter<MainView> {
 
@@ -47,18 +41,5 @@ public class MainPresenter extends MvpBasePresenter<MainView> {
         });
     }
 
-    public void onActivityResult(Context context, int requestCode,
-                                 int resultCode, Intent data) {
-        if (AlbumPickerActivity.hasData(requestCode, resultCode)) {
-            ArrayList<Image> imageArrayList =
-                    AlbumPickerActivity.getImageData(data);
-            String path = "";
-            for (Image image : imageArrayList) {
-                path += image.getPath() + ",";
-            }
-            getView().onShowToast(path);
-        }
-
-    }
 
 }

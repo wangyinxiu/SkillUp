@@ -6,8 +6,9 @@ import com.xiu.skillup.presenter.file_list.MediaFileListPresenter;
 
 import androidx.annotation.NonNull;
 
-public class MediaListActivity
-        extends BaseFileListActivity<MediaInfo, MediaInfoAdapter, MediaFileListPresenter> {
+public class MediaListActivity extends BaseFileListActivity
+        <MediaInfo, MediaInfoAdapter, MediaFileListPresenter> {
+
 
     @Override
     public void onContentChanged() {
@@ -28,6 +29,7 @@ public class MediaListActivity
 
     @Override
     public void onItemClick(int id, int position, MediaInfo data) {
-
+        getPresenter().start(this,position,getAdapter().getData());
     }
+
 }

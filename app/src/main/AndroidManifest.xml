@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SkillUpTheme">
-        <activity android:name=".activity.file_list.ImageListActivity"></activity>
+        <activity android:name=".activity.MediaPlayerActivity"></activity>
+        <activity android:name=".activity.file_list.ImageListActivity" />
         <activity android:name=".activity.file_list.VideoListActivity" />
         <activity android:name=".activity.file_list.MediaListActivity" />
         <activity android:name=".activity.FileListActivity" />

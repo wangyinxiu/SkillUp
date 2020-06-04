@@ -22,7 +22,7 @@ public  abstract class BaseFileListActivity
     @Override
     protected void onStart() {
         super.onStart();
-        getPresenter().startDataLoader();
+        getPresenter().startDataLoader(this);
     }
 
     @Override
