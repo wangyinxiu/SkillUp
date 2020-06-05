@@ -27,7 +27,7 @@ public class VideoListActivity extends BaseFileListActivity<String,
     }
 
     @Override
-    public void onItemClick(int id, int position, String data) {
+    public void onItemClick(int position, String data) {
 
     }
 }

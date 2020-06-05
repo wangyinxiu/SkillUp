@@ -9,11 +9,11 @@ import com.xiu.ui.view.recycler.XRecyclerAdapter;
 
 import androidx.annotation.NonNull;
 
-public class SingleButtonAdapter extends XRecyclerAdapter<String> {
+public class SingleTextAdapter<T> extends XRecyclerAdapter<T> {
 
     private static final String TAG = "SingleButtonAdapter";
 
-    public SingleButtonAdapter(Context context) {
+    public SingleTextAdapter(Context context) {
         super(context);
     }
 
@@ -28,13 +28,12 @@ public class SingleButtonAdapter extends XRecyclerAdapter<String> {
     }
 
     @Override
-    public boolean onClick(int id, int position, String data) {
-        LogUtil.i(TAG, "position == " + position + " , data == " + data);
+    public boolean onClick(int id, int position, T data) {
         return true;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull XHolder holder, int position, String data) {
-        holder.findButtonById(R.id.item_text).setTextSafe(data);
+    public void onBindViewHolder(@NonNull XHolder holder, int position, T data) {
+        holder.findButtonById(R.id.item_text).setBackgroundColor(context.getResources().getColor(R.color.transparent));
     }
 }

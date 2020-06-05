@@ -19,4 +19,12 @@ public class ArrayUtil {
     public static boolean isFileArrayNotEmpty(File[] array){
         return !isFileArrayEmpty(array);
     }
+
+    public static boolean isObjectArrayEmpty(Object[] array){
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isObjectArrayNotEmpty(Object[] array){
+        return !isObjectArrayEmpty(array);
+    }
 }

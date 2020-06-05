@@ -64,7 +64,7 @@ public class DataLoader {
         }
     }
 
-    public void startLoader(File root) {
+    public synchronized void startLoader(File root) {
         if (isLoading) {
             LogUtil.i(TAG, "start loader but is loading");
             return;

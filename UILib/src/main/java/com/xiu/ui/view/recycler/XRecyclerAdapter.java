@@ -16,12 +16,12 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> {
+public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> implements View.OnClickListener {
 
     private List<T> data = null;
-    private Context context = null;
+    protected Context context = null;
     private View.OnClickListener onClickListener;
-    private OnItemClickLister<T> onItemClickLister;
+    protected OnItemClickLister<T> onItemClickLister;
 
 
     public XRecyclerAdapter(Context context) {
@@ -66,16 +66,18 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
 
     public void setXHolderClick(XHolder holder) {
         if (ArrayUtil.isIntArrayNotEmpty(setOnClick())) {
-            onClickListener = view -> {
-                int[] tags = (int[]) view.getTag();
-                if (ArrayUtil.isIntArrayNotEmpty(tags)) {
-                    if (XRecyclerAdapter.this.onClick(tags[0], tags[1], getItem(tags[1])) && onItemClickLister != null) {
-                        onItemClickLister.onItemClick(tags[0], tags[1], getItem(tags[1]));
-                    }
-                }
-            };
             for (int id : setOnClick()) {
-                holder.findViewById(id).setOnClickListener(onClickListener);
+                holder.findViewById(id).setOnClickListener(this);
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        int[] tags = (int[]) view.getTag();
+        if (ArrayUtil.isIntArrayNotEmpty(tags)) {
+            if (XRecyclerAdapter.this.onClick(tags[0], tags[1], getItem(tags[1])) && onItemClickLister != null) {
+                onItemClickLister.onItemClick(tags[1], getItem(tags[1]));
             }
         }
     }
@@ -165,6 +167,6 @@ public abstract class XRecyclerAdapter<T> extends RecyclerView.Adapter<XHolder> 
     }
 
     public interface OnItemClickLister<T> {
-        void onItemClick(int id, int position, T data);
+        void onItemClick(int position, T data);
     }
 }

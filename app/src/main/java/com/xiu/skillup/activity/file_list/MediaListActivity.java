@@ -27,9 +27,9 @@ public class MediaListActivity extends BaseFileListActivity
         return new MediaInfoAdapter(getContext());
     }
 
+
     @Override
-    public void onItemClick(int id, int position, MediaInfo data) {
+    public void onItemClick(int position, MediaInfo data) {
         getPresenter().start(this,position,getAdapter().getData());
     }
-
 }

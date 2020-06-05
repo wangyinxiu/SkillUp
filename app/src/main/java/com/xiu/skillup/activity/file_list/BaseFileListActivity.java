@@ -1,5 +1,7 @@
 package com.xiu.skillup.activity.file_list;
 
+import android.os.Bundle;
+
 import com.xiu.common.utils.LogUtil;
 import com.xiu.skillup.mvp_view.FileListView;
 import com.xiu.skillup.presenter.file_list.FileListPresenter;
@@ -20,14 +22,20 @@ public  abstract class BaseFileListActivity
 
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         getPresenter().startDataLoader(this);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         getPresenter().stopDataLoader();
     }
 

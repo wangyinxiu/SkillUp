@@ -1,7 +1,6 @@
 package com.xiu.skillup.presenter.file_list;
 
 import android.Manifest;
-import android.content.Context;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.xiu.datalib.MediaFileUtil;
@@ -22,7 +21,7 @@ public class MediaFileListPresenter extends FileListPresenter<MediaInfo,
     public List<MediaInfo> getFileList() {
         List<MediaInfo> list = new ArrayList<>();
         for (String path : DataLoader.getInstance().getMediaData()) {
-            list.add(MediaFileUtil.disassmenbleFile(path));
+            list.add(MediaFileUtil.disassembleFile(path));
         }
         return list;
     }

@@ -45,7 +45,7 @@ public class MediaBinder extends Binder implements
     }
 
     public void start(String path) {
-        LogUtil.i(TAG,"to start path == "+ path);
+//        LogUtil.i(TAG,"to start path == "+ path);
         this.path = path;
         last = PLAYING;
         if(manager.hasFocus()){
@@ -57,7 +57,7 @@ public class MediaBinder extends Binder implements
                 e.printStackTrace();
             }
         }else {
-            LogUtil.i(TAG,"start request audio focus");
+//            LogUtil.i(TAG,"start request audio focus");
             manager.requestAudioFocus();
         }
     }
@@ -93,7 +93,7 @@ public class MediaBinder extends Binder implements
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        LogUtil.i(TAG, "onPrepared");
+//        LogUtil.i(TAG, "onPrepared");
         last = PLAYING;
         player.start();
         notify(STATE_PLAY,0,0);

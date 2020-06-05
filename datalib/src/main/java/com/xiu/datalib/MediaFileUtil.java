@@ -6,7 +6,7 @@ import com.xiu.datalib.common.MediaInfo;
 
 public class MediaFileUtil {
 
-    public static MediaInfo disassmenbleFile(String path){
+    public static MediaInfo disassembleFile(String path){
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(path);
         String title =

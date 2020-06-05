@@ -10,7 +10,6 @@ import com.xiu.skillup.presenter.MainPresenter;
 import com.xiu.ui.base.recycler.BaseRecyclerActivity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class MainActivity extends
         BaseRecyclerActivity<String,SingleButtonAdapter,MainView, MainPresenter>
@@ -39,7 +38,7 @@ public class MainActivity extends
     }
 
     @Override
-    public void onItemClick(int id, int position, String data) {
+    public void onItemClick(int position, String data) {
         switch (data) {
             case ITEM_LOAD_IMAGE:
                 getPresenter().intent2ImageListActivity(getContext());
@@ -57,6 +56,7 @@ public class MainActivity extends
                 break;
         }
     }
+
 
     @Override
     public void onShowToast(String text) {

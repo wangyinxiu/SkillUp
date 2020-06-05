@@ -6,8 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".activity.MediaPlayerActivity">
 
+    <ImageView
+        android:id="@+id/image_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:background="@color/gray"
+        />
+
+
+    <com.xiu.ui.view.recycler.gallery.GalleryRecyclerView
+        android:layout_marginTop="100dp"
+        android:id="@+id/recycler_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/transparent"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/recycler_gallery"
+        android:layout_above="@+id/container_control"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
 
     <LinearLayout
+        android:id="@+id/container_control"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="50dp"

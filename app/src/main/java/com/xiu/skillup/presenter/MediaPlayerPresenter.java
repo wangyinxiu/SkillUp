@@ -30,6 +30,9 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
     public void setDataSource(int position ,List<MediaInfo> data){
         this.position = position;
         this.data = data;
+        getView().onItButton();
+        getView().onInitGallery(position,data);
+        getView().onInitName(position,data);
     }
 
     public void playOrPause(Context context) {
@@ -41,10 +44,19 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
         }
     }
 
+    public void play(Context context,int position){
+        if(this.position == position && state == MediaBinder.STATE_PLAY){
+            return;
+        }
+        this.position = position;
+        play(context);
+    }
+
     public void playLast(Context context){
         if(--position == 0){
             position = data.size()-1;
         }
+        getView().onPageChanged(position);
         play(context);
     }
 
@@ -52,6 +64,7 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
         if(++position >= data.size()){
             position = 0;
         }
+        getView().onPageChanged(position);
         play(context);
     }
 
@@ -77,6 +90,10 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
         mediaBinder.start(data.get(position).getPath());
     }
 
+    public void unBindMediaService(Context context){
+        context.unbindService(this);
+    }
+
     @Override
     public void onServiceDisconnected(ComponentName name) {
         mediaBinder = null;
@@ -98,5 +115,9 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
     @Override
     public void onSeekBarChanged(long progress, long all) {
 
+    }
+
+    public int getPosition() {
+        return position;
     }
 }
