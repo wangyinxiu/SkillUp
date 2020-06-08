@@ -2,7 +2,6 @@ package com.xiu.skillup.activity.file_list;
 
 import android.view.ViewGroup;
 
-import com.xiu.datalib.common.MediaInfo;
 import com.xiu.skillup.R;
 import com.xiu.skillup.adapter.SingleImageAdapter;
 import com.xiu.skillup.presenter.file_list.ImageFileListPresenter;

@@ -47,6 +47,7 @@ public  abstract class BaseFileListActivity
     @Override
     public void onDataLoaded(List data) {
         LogUtil.i(getClass().getSimpleName(),"data size == "+ data.size());
+        getAdapter().clear();
         getAdapter().addData(data);
     }
 

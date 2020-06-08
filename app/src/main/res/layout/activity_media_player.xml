@@ -67,6 +67,13 @@
             />
     </LinearLayout>
 
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:layout_above="@id/container_control"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/seek"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
 
 
 </RelativeLayout>

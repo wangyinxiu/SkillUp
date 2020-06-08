@@ -52,8 +52,14 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
         play(context);
     }
 
+    public void seekTo(int position){
+        if(mediaBinder!=null){
+            mediaBinder.seekTo(position);
+        }
+    }
+
     public void playLast(Context context){
-        if(--position == 0){
+        if(--position <= 0){
             position = data.size()-1;
         }
         getView().onPageChanged(position);
@@ -91,6 +97,7 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
     }
 
     public void unBindMediaService(Context context){
+        mediaBinder.removeOnMediaBinderListener(this);
         context.unbindService(this);
     }
 
@@ -113,8 +120,14 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
     }
 
     @Override
-    public void onSeekBarChanged(long progress, long all) {
+    public void onComplete() {
+        playNext(null);
+        getView().onSeekChanged(0,0);
+    }
 
+    @Override
+    public void onSeekBarChanged(int progress, int all) {
+        getView().onSeekChanged(progress,all);
     }
 
     public int getPosition() {

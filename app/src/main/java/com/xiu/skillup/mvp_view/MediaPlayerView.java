@@ -16,4 +16,6 @@ public interface MediaPlayerView extends MvpView {
     void onPageChanged(int position);
 
     void onChangePlayButtonText(String text);
+
+    void onSeekChanged(int position,int duration);
 }

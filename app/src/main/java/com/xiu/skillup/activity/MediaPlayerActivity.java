@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
+import android.widget.SeekBar;
 
 import com.xiu.common.utils.LogUtil;
 import com.xiu.datalib.common.MediaInfo;
@@ -25,7 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MediaPlayerActivity extends MvpActivity<MediaPlayerView, MediaPlayerPresenter>
@@ -37,9 +40,12 @@ public class MediaPlayerActivity extends MvpActivity<MediaPlayerView, MediaPlaye
     private static final String ARG_DATA = "arg_data";
 
     private MediaGalleryAdapter galleryAdapter;
-    private SingleTextAdapter<MediaInfo> nameAdapter;
-    private GalleryScaleHelper helper;
+    private GalleryScaleHelper galleryScaleHelper;
 
+    private SingleTextAdapter<MediaInfo> nameAdapter;
+    private LinearSnapHelper nameSnapHelper;
+    private RecyclerView nameRecyclerView;
+    private AppCompatSeekBar seekBar;
     public static void newInstance(Context context, int position,
                                    List<MediaInfo> data) {
         Intent intent = new Intent(context, MediaPlayerActivity.class);
@@ -61,8 +67,28 @@ public class MediaPlayerActivity extends MvpActivity<MediaPlayerView, MediaPlaye
         int position = getIntent().getIntExtra(ARG_POSITION, 0);
         List<MediaInfo> data =
                 (ArrayList) getIntent().getParcelableArrayListExtra(ARG_DATA);
+        seekBar = findViewById(R.id.seek);
         getPresenter().setDataSource(position, data);
         getPresenter().playOrPause(getContext());
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int progress = seekBar.getProgress();
+                LogUtil.i(TAG,"stop seek progress == "+ progress);
+                getPresenter().seekTo(progress);
+            }
+        });
     }
 
 
@@ -82,11 +108,10 @@ public class MediaPlayerActivity extends MvpActivity<MediaPlayerView, MediaPlaye
         galleryAdapter.addData(data);
         LogUtil.i(TAG, "data size == " + data.size());
         recyclerView.setAdapter(galleryAdapter);
-        helper = new GalleryScaleHelper();
-        helper.setStartPosition(position, galleryAdapter.getData().size());
-        helper.attachToRecyclerView(recyclerView);
+        galleryScaleHelper = new GalleryScaleHelper();
+        galleryScaleHelper.setStartPosition(position, galleryAdapter.getData().size());
+        galleryScaleHelper.attachToRecyclerView(recyclerView);
         recyclerView.addOnPageChangeListener(position1 -> {
-            LogUtil.i(TAG, "OnPageChangeListener == " + position1);
             int realPosition = galleryAdapter.getRealPosition(position1);
             getPresenter().play(getContext(), realPosition);
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -104,8 +129,8 @@ public class MediaPlayerActivity extends MvpActivity<MediaPlayerView, MediaPlaye
 
     @Override
     public void onInitName(int position, List<MediaInfo> data) {
-        RecyclerView recyclerView = findViewById(R.id.recycler_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        nameRecyclerView = findViewById(R.id.recycler_list);
+        nameRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         nameAdapter = new SingleTextAdapter<MediaInfo>(getContext()) {
 
             @Override
@@ -128,23 +153,38 @@ public class MediaPlayerActivity extends MvpActivity<MediaPlayerView, MediaPlaye
             @Override
             public boolean onClick(int id, int position, MediaInfo data) {
                 getPresenter().play(getContext(), position);
-                helper.setPosition(position, getItemCount());
+                galleryScaleHelper.setPosition(position, getItemCount());
                 return false;
             }
         };
         nameAdapter.addData(data);
-        recyclerView.setAdapter(nameAdapter);
+        nameRecyclerView.setAdapter(nameAdapter);
+        nameSnapHelper = new LinearSnapHelper();
+        nameSnapHelper.attachToRecyclerView(nameRecyclerView);
     }
+
+
 
     @Override
     public void onPageChanged(int position) {
-        helper.setPosition(position, nameAdapter.getItemCount());
+        LogUtil.i(TAG,"onPageChanged == "+position);
+        galleryScaleHelper.setPosition(position, nameAdapter.getItemCount());
         nameAdapter.notifyDataSetChanged();
+        nameRecyclerView.smoothScrollToPosition(position);
     }
 
     @Override
     public void onChangePlayButtonText(String text) {
         findButtonViewById(R.id.btn_play).setTextSafe(text);
+    }
+
+    @Override
+    public void onSeekChanged(int position, int duration) {
+        boolean enable = !(position == 0 && duration == 0);
+        if(enable){
+            seekBar.setMax(duration);
+            seekBar.setProgress(position);
+        }
     }
 
     @NonNull
