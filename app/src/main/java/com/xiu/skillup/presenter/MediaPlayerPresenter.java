@@ -26,6 +26,7 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
     private int position;
 
     private int state = MediaBinder.STATE_STOP;
+    private boolean isSeekbarToucn = false;
 
     public void setDataSource(int position ,List<MediaInfo> data){
         this.position = position;
@@ -127,10 +128,16 @@ public class MediaPlayerPresenter extends MvpBasePresenter<MediaPlayerView>
 
     @Override
     public void onSeekBarChanged(int progress, int all) {
-        getView().onSeekChanged(progress,all);
+        if(!isSeekbarToucn){
+            getView().onSeekChanged(progress,all);
+        }
     }
 
     public int getPosition() {
         return position;
+    }
+
+    public void setSeekBarTouchState(boolean isTouch){
+        this.isSeekbarToucn = isTouch;
     }
 }

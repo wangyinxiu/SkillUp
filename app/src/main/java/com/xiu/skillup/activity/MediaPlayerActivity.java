@@ -79,11 +79,12 @@ public class MediaPlayerActivity extends MvpActivity<MediaPlayerView, MediaPlaye
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                getPresenter().setSeekBarTouchState(true);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                getPresenter().setSeekBarTouchState(false);
                 int progress = seekBar.getProgress();
                 LogUtil.i(TAG,"stop seek progress == "+ progress);
                 getPresenter().seekTo(progress);
